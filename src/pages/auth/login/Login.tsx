@@ -9,6 +9,7 @@ import {
   IconButton,
   InputAdornment,
   InputLabel,
+  LinearProgress,
   OutlinedInput,
   TextField,
 } from '@mui/material'
@@ -22,8 +23,11 @@ import Link from '@mui/material/Link'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import { Form, Formik } from 'formik'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { pages } from 'src/constants'
+import { useTypedSelector } from 'src/hooks'
+import { getLoginToken } from 'src/utils'
 import useActions from './store/useActions'
 import { schema } from './validation'
 
@@ -34,12 +38,26 @@ export default function Login() {
 
   const [siVisible, setIsVisible] = useState(false)
 
+  const { isLoading } = useTypedSelector(state => state.pages.login)
+
+  const { loginApi, clearStore } = useActions()
+
   const handleClickShowPassword = () => setIsVisible(prev => !prev)
 
-  const { loginApi } = useActions()
+  useEffect(() => {
+    if (false && getLoginToken()) {
+      history.push(pages.HOME)
+    }
+
+    return () => {
+      clearStore()
+    }
+  }, [])
 
   return (
     <ThemeProvider theme={theme}>
+      {isLoading && <LinearProgress />}
+
       <Container component="main" maxWidth="xs">
         <CssBaseline />
 

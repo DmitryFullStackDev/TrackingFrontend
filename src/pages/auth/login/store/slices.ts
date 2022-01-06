@@ -15,19 +15,10 @@ export const loginApi = createAction<{
 export const clearStore = createAction(prefix + 'clearStore')
 
 const isLoading = createSlice({
-  name: prefix + 'IS_LOADING',
+  name: prefix + 'isLoading',
   initialState: false,
   reducers: {
     setIsLoading: (state, { payload }: PayloadAction<boolean>) =>
-      (state = payload),
-  },
-})
-
-const isTwoFactAuth = createSlice({
-  name: prefix + 'twoFactAuth',
-  initialState: false,
-  reducers: {
-    setIsTwoFactAuth: (state, { payload }: PayloadAction<boolean>) =>
       (state = payload),
   },
   extraReducers: {
@@ -36,9 +27,7 @@ const isTwoFactAuth = createSlice({
 })
 
 export const { setIsLoading } = isLoading.actions
-export const { setIsTwoFactAuth } = isTwoFactAuth.actions
 
 export default combineReducers({
   isLoading: isLoading.reducer,
-  isTwoFactAuth: isTwoFactAuth.reducer,
 })

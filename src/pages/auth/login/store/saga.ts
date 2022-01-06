@@ -10,11 +10,10 @@ function* loginApi(action: ReturnType<typeof actions.loginApi>) {
   yield put(actions.setIsLoading(true))
 
   try {
-    const data = yield call(() => API.auth.login.post(payload))
-    console.log(data)
-    yield setLoginToken('asdfsdf')
+    const { data } = yield call(() => API.auth.login.post(payload))
+    yield setLoginToken(data.access_token)
 
-    /*   yield put(push(pages.DRIVERS)) */
+    /*   yield put(push(pages.HOME)) */
   } catch (e) {
     toast.error(e.data.message)
   }
