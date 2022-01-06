@@ -5,12 +5,9 @@ import {
   PayloadAction,
 } from '@reduxjs/toolkit'
 
-const prefix = 'page/auth/login/'
+const prefix = 'page/auth/registraion'
 
-export const loginApi = createAction<{
-  email: string
-  password: string
-}>(prefix + 'loginApi')
+export const registraionApi = createAction<any>(prefix + '/registraionApi')
 
 export const clearStore = createAction(prefix + 'clearStore')
 

@@ -10,17 +10,18 @@ import {
   InputAdornment,
   InputLabel,
   LinearProgress,
+  Link,
   OutlinedInput,
   TextField,
 } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
+import { green } from '@mui/material/colors'
 import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import FormHelperText from '@mui/material/FormHelperText'
 import Grid from '@mui/material/Grid'
-import Link from '@mui/material/Link'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { createTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import { Form, Formik } from 'formik'
 import React, { useEffect, useState } from 'react'
@@ -36,7 +37,7 @@ const theme = createTheme()
 export default function Login() {
   const history = useHistory()
 
-  const [siVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
 
   const { isLoading } = useTypedSelector(state => state.pages.login)
 
@@ -55,7 +56,7 @@ export default function Login() {
   }, [])
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       {isLoading && <LinearProgress />}
 
       <Container component="main" maxWidth="xs">
@@ -69,7 +70,7 @@ export default function Login() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: green[500] }}>
             <LockOutlinedIcon />
           </Avatar>
 
@@ -115,7 +116,7 @@ export default function Login() {
 
                   <OutlinedInput
                     id="outlined-adornment-password"
-                    type={siVisible ? 'text' : 'password'}
+                    type={isVisible ? 'text' : 'password'}
                     value={values.password}
                     onChange={handleChange('password')}
                     onBlur={handleBlur}
@@ -126,7 +127,7 @@ export default function Login() {
                           onClick={handleClickShowPassword}
                           edge="end"
                         >
-                          {siVisible ? <VisibilityOff /> : <Visibility />}
+                          {isVisible ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       </InputAdornment>
                     }
@@ -159,19 +160,31 @@ export default function Login() {
 
           <Grid container>
             <Grid item xs>
-              <Link href="#" variant="body2">
+              <Link
+                component="button"
+                variant="body2"
+                onClick={() => {
+                  console.info("I'm a button.")
+                }}
+              >
                 Forgot password?
               </Link>
             </Grid>
 
             <Grid item>
-              <Link href="#" variant="body2">
+              <Link
+                component="button"
+                variant="body2"
+                onClick={() => {
+                  history.push(pages.REGISTRATION)
+                }}
+              >
                 {"Don't have an account? Sign Up"}
               </Link>
             </Grid>
           </Grid>
         </Box>
       </Container>
-    </ThemeProvider>
+    </>
   )
 }

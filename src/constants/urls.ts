@@ -1,8 +1,9 @@
 export const urls = {
   auth: {
-    login: 'auth/singIn',
+    login: 'auth/login',
+    registration: 'auth/registration',
+
     logout: 'logout',
-    registration: 'register',
     csrf: 'sanctum/csrf-cookie',
     forgotPassword: 'forgot-password',
     resetPassword: 'reset-password',
