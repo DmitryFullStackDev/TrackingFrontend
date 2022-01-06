@@ -1,25 +1,23 @@
 import { toast } from 'react-toastify'
 import { call, put, takeLatest } from 'redux-saga/effects'
 import API from 'src/api'
-import { setLoginToken } from 'src/utils'
 import * as actions from './slices'
 
-function* loginApi(action: ReturnType<typeof actions.loginApi>) {
+function* loginApi(action: ReturnType<typeof actions.forgontPassword>) {
   const { payload } = action
 
-  yield put(actions.setIsLoading(true))
-
+  yield put(actions.setSendStatus('sending'))
   try {
-    const { data } = yield call(() => API.auth.login.post(payload))
-    yield setLoginToken(data.access_token)
+    yield call(() => API.auth.forgotPassword.post(payload))
 
-    /*   yield put(push(pages.HOME)) */
+    yield put(actions.setSendStatus('done'))
   } catch (e) {
     toast.error(e.data.message)
+
+    yield put(actions.setSendStatus('waiting'))
   }
-  yield put(actions.setIsLoading(false))
 }
 
 export function* watchAuthForgotPassword() {
-  yield takeLatest(actions.loginApi.type, loginApi)
+  yield takeLatest(actions.forgontPassword.type, loginApi)
 }

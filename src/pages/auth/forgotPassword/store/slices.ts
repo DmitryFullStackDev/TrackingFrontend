@@ -7,27 +7,28 @@ import {
 
 const prefix = 'page/auth/forgotPassword/'
 
-export const loginApi = createAction<{
+export const forgontPassword = createAction<{
   email: string
-  password: string
-}>(prefix + 'loginApi')
+}>(prefix + 'forgontPasswordApi')
 
 export const clearStore = createAction(prefix + 'clearStore')
 
-const isLoading = createSlice({
-  name: prefix + '/isLoading',
-  initialState: false,
+const sendStatus = createSlice({
+  name: prefix + '/sendStatus',
+  initialState: 'waiting',
   reducers: {
-    setIsLoading: (state, { payload }: PayloadAction<boolean>) =>
-      (state = payload),
+    setSendStatus: (
+      state,
+      { payload }: PayloadAction<'waiting' | 'sending' | 'done'>,
+    ) => (state = payload),
   },
   extraReducers: {
-    [clearStore.type]: () => false,
+    [clearStore.type]: () => 'waiting',
   },
 })
 
-export const { setIsLoading } = isLoading.actions
+export const { setSendStatus } = sendStatus.actions
 
 export default combineReducers({
-  isLoading: isLoading.reducer,
+  sendStatus: sendStatus.reducer,
 })
