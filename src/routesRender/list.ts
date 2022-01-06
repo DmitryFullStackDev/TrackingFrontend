@@ -1,7 +1,7 @@
 import { pages as p } from 'src/constants'
-import ForgotPassword from 'src/pages/auth/forgotPassword/ForgotPassword'
-import Login from 'src/pages/auth/login/Login'
-import Registration from 'src/pages/auth/registration/Registration'
+import ForgotPassword from 'src/pages/auth/forgotPassword'
+import Login from 'src/pages/auth/login'
+import Registration from 'src/pages/auth/registration'
 
 const withAuth = []
 
