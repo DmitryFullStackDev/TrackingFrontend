@@ -256,7 +256,7 @@ const Registration = () => {
                 component="button"
                 variant="body2"
                 onClick={() => {
-                  console.info("I'm a button.")
+                  history.push(pages.FORGOTPASSWORD)
                 }}
               >
                 Forgot password?
