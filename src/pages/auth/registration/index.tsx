@@ -5,8 +5,10 @@ import { DesktopDatePicker, LocalizationProvider } from '@mui/lab'
 import DateAdapter from '@mui/lab/AdapterDateFns'
 import {
   Button,
+  Checkbox,
   Container,
   FormControl,
+  FormControlLabel,
   IconButton,
   InputAdornment,
   InputLabel,
@@ -71,6 +73,7 @@ const Registration = () => {
               phone: '',
               confirmPassword: '',
               date: new Date(),
+              termsAndConditions: false,
             }}
             /*             validationSchema={schema} */
             onSubmit={values => {
@@ -238,7 +241,38 @@ const Registration = () => {
                   )}
                 </FormControl>
 
+                <FormControl
+                  error={Boolean(errors.termsAndConditions)}
+                  fullWidth
+                >
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        value={values.termsAndConditions}
+                        color="primary"
+                        onClick={handleChange('termsAndConditions')}
+                      />
+                    }
+                    label={
+                      <Link
+                        variant="inherit"
+                        component="button"
+                        onClick={() => {
+                          console.log(1)
+                        }}
+                      >
+                        I have read and agree to the terms and conditions
+                      </Link>
+                    }
+                  />
+
+                  {Boolean(errors.termsAndConditions) && (
+                    <FormHelperText>You can display an error</FormHelperText>
+                  )}
+                </FormControl>
+
                 <Button
+                  disabled={false}
                   type="submit"
                   fullWidth
                   variant="contained"
