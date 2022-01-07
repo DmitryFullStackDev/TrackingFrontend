@@ -5,6 +5,7 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
+  Grid,
   Link,
   Stack,
   TextField,
@@ -13,6 +14,9 @@ import Box from '@mui/material/Box'
 import FormHelperText from '@mui/material/FormHelperText'
 import { Form, Formik } from 'formik'
 import React from 'react'
+import { isMobile } from 'react-device-detect'
+import { useHistory } from 'react-router-dom'
+import { pages } from 'src/constants'
 import { isEmpty } from 'src/utils'
 import useActions from '../store/useActions'
 import { schema } from '../validation'
@@ -21,6 +25,10 @@ import TextFields from './TextFields'
 
 const RegistrationForm = () => {
   const { registraionApi } = useActions()
+
+  const history = useHistory()
+
+  const display = isMobile ? 'block' : 'grid'
 
   return (
     <Formik
@@ -49,79 +57,117 @@ const RegistrationForm = () => {
         handleBlur,
       }) => (
         <Form>
-          <TextFields
-            touched={touched}
-            errors={errors}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-            values={values}
-          />
-
-          <LocalizationProvider dateAdapter={DateAdapter}>
-            <Box sx={{ mt: 2, mb: 1 }}>
-              <Stack spacing={0}>
-                <DesktopDatePicker
-                  label="Date of Birth"
-                  inputFormat="MM/dd/yyyy"
-                  value={values.date}
-                  onChange={arg => setFieldValue('date', arg)}
-                  renderInput={params => (
-                    <TextField
-                      {...params}
-                      error={Boolean(errors.date)}
-                      helperText={errors.date}
-                    />
-                  )}
-                />
-              </Stack>
-            </Box>
-          </LocalizationProvider>
-
-          <PasswordFields
-            touched={touched}
-            errors={errors}
-            handleChange={handleChange}
-            handleBlur={handleBlur}
-            values={values}
-          />
-
-          <FormControl error={Boolean(errors.termsAndConditions)} fullWidth>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  value={values.termsAndConditions}
-                  color="primary"
-                  onClick={handleChange('termsAndConditions')}
-                />
-              }
-              label={
-                <Link
-                  variant="inherit"
-                  component="button"
-                  type="button"
-                  onClick={() => {
-                    console.log(1)
-                  }}
-                >
-                  I have read and agree to the terms and conditions
-                </Link>
-              }
-            />
-
-            {Boolean(errors.termsAndConditions) && (
-              <FormHelperText>{errors.termsAndConditions}</FormHelperText>
-            )}
-          </FormControl>
-
-          <Button
-            disabled={!Boolean(isEmpty(errors))}
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+          <Box
+            sx={{
+              display,
+              gridTemplateColumns: '1fr 1fr',
+              columnGap: '60px',
+            }}
           >
-            Sign In
-          </Button>
+            <Box>
+              <TextFields
+                touched={touched}
+                errors={errors}
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                values={values}
+              />
+            </Box>
+
+            <Box>
+              <LocalizationProvider dateAdapter={DateAdapter}>
+                <Box sx={{ mt: 2, mb: 1 }}>
+                  <Stack spacing={0}>
+                    <DesktopDatePicker
+                      label="Date of Birth"
+                      inputFormat="MM/dd/yyyy"
+                      value={values.date}
+                      onChange={arg => setFieldValue('date', arg)}
+                      renderInput={params => (
+                        <TextField
+                          {...params}
+                          error={Boolean(errors.date)}
+                          helperText={errors.date}
+                        />
+                      )}
+                    />
+                  </Stack>
+                </Box>
+              </LocalizationProvider>
+
+              <PasswordFields
+                touched={touched}
+                errors={errors}
+                handleChange={handleChange}
+                handleBlur={handleBlur}
+                values={values}
+              />
+
+              <FormControl error={Boolean(errors.termsAndConditions)} fullWidth>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      value={values.termsAndConditions}
+                      color="primary"
+                      onClick={handleChange('termsAndConditions')}
+                    />
+                  }
+                  label={
+                    <Link
+                      variant="inherit"
+                      component="button"
+                      type="button"
+                      onClick={() => {
+                        console.log(1)
+                      }}
+                    >
+                      I have read and agree to the terms and conditions
+                    </Link>
+                  }
+                />
+
+                {Boolean(errors.termsAndConditions) && (
+                  <FormHelperText>{errors.termsAndConditions}</FormHelperText>
+                )}
+              </FormControl>
+
+              <Button
+                disabled={!Boolean(isEmpty(errors))}
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                Sign In
+              </Button>
+
+              <Grid mt={1.7} container>
+                <Grid item xs>
+                  <Link
+                    component="button"
+                    variant="body2"
+                    onClick={() => {
+                      history.push(pages.FORGOTPASSWORD)
+                    }}
+                  >
+                    Forgot password?
+                  </Link>
+                </Grid>
+
+                <Grid item>
+                  <Link
+                    component="button"
+                    variant="body2"
+                    onClick={() => {
+                      history.push(pages.LOGIN)
+                    }}
+                  >
+                    Sign In
+                  </Link>
+                </Grid>
+              </Grid>
+            </Box>
+          </Box>
         </Form>
       )}
     </Formik>
