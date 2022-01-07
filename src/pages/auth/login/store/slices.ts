@@ -26,8 +26,19 @@ const isLoading = createSlice({
   },
 })
 
+const isRemember = createSlice({
+  name: prefix + '/isRemember',
+  initialState: false,
+  reducers: {
+    setIsRemember: (state, { payload }: PayloadAction<boolean>) =>
+      (state = payload),
+  },
+})
+
 export const { setIsLoading } = isLoading.actions
+export const { setIsRemember } = isRemember.actions
 
 export default combineReducers({
   isLoading: isLoading.reducer,
+  isRemember: isRemember.reducer,
 })

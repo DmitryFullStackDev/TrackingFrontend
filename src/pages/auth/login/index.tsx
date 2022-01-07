@@ -27,7 +27,7 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import { pages } from 'src/constants'
 import { useTypedSelector } from 'src/hooks'
-import { getLoginToken } from 'src/utils'
+import { getLoginToken, isEmpty } from 'src/utils'
 import useActions from './store/useActions'
 import { schema } from './validation'
 
@@ -38,7 +38,7 @@ export default function Login() {
 
   const { isLoading } = useTypedSelector(state => state.pages.login)
 
-  const { loginApi, clearStore } = useActions()
+  const { loginApi, clearStore, setIsRemember } = useActions()
 
   const handleClickShowPassword = () => setIsVisible(prev => !prev)
 
@@ -79,6 +79,7 @@ export default function Login() {
             initialValues={{
               email: 'dmitry.dev.react@gmail.com',
               password: '123456789',
+              remember: false,
             }}
             validationSchema={schema}
             onSubmit={values => {
@@ -107,15 +108,14 @@ export default function Login() {
                   fullWidth
                   error={Boolean(touched.password && errors.password)}
                 >
-                  <InputLabel htmlFor="outlined-adornment-password">
-                    Password
-                  </InputLabel>
+                  <InputLabel htmlFor="password">Password</InputLabel>
 
                   <OutlinedInput
-                    id="outlined-adornment-password"
+                    id="password"
                     type={isVisible ? 'text' : 'password'}
                     value={values.password}
-                    onChange={handleChange('password')}
+                    name="password"
+                    onChange={handleChange}
                     onBlur={handleBlur}
                     endAdornment={
                       <InputAdornment position="end">
@@ -131,7 +131,7 @@ export default function Login() {
                     label="Password"
                   />
 
-                  {touched.email && (
+                  {Boolean(touched.password && errors.password) && (
                     <FormHelperText id="component-helper-text">
                       {errors.password}
                     </FormHelperText>
@@ -139,11 +139,20 @@ export default function Login() {
                 </FormControl>
 
                 <FormControlLabel
-                  control={<Checkbox value="remember" color="primary" />}
+                  control={
+                    <Checkbox
+                      onClick={() => setIsRemember(!values.remember)}
+                      color="primary"
+                      name="remember"
+                      onChange={handleChange}
+                      value={values.remember}
+                    />
+                  }
                   label="Remember me"
                 />
 
                 <Button
+                  disabled={!Boolean(isEmpty(errors))}
                   type="submit"
                   fullWidth
                   variant="contained"
