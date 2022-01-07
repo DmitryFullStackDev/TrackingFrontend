@@ -1,4 +1,4 @@
-import { object, ref, string } from 'yup'
+import { boolean, date, object, ref, string } from 'yup'
 
 export const schema = object().shape({
   email: string()
@@ -13,4 +13,13 @@ export const schema = object().shape({
   confirmPassword: string()
     .required('Заполните поле')
     .oneOf([ref('password'), null], 'Пароль должен совподать'),
+  name: string().required('Заполните поле'),
+  surname: string().required('Заполните поле'),
+  lastName: string().required('Заполните поле'),
+  phone: string().required('Заполните поле'),
+  termsAndConditions: boolean().oneOf(
+    [true],
+    'The terms and conditions must be accepted.',
+  ),
+  date: date().required('Заполните поле').max(new Date(), 'invalid date'),
 })
