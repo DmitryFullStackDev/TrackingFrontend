@@ -11,7 +11,7 @@ import Grid from '@mui/material/Grid'
 import Modal from '@mui/material/Modal'
 import Typography from '@mui/material/Typography'
 import { Form, Formik } from 'formik'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { isMobile } from 'react-device-detect'
 import { useHistory } from 'react-router-dom'
 import { pages } from 'src/constants'
@@ -28,6 +28,16 @@ export default function ForgotPassword() {
   const { forgontPassword, setSendStatus, clearStore } = useActions()
 
   const popUpWidth = isMobile ? '90%' : 400
+
+  useEffect(() => {
+    if (sendStatus === 'done') {
+      setTimeout(() => history.push(pages.LOGIN), 5000)
+    }
+
+    return () => {
+      clearStore()
+    }
+  }, [])
 
   return (
     <Container component="main" maxWidth="xs">
@@ -159,7 +169,7 @@ export default function ForgotPassword() {
             variant="inherit"
             component="button"
             onClick={() => {
-              console.log(1)
+              history.push(pages.LOGIN)
             }}
           >
             Back to Sign In

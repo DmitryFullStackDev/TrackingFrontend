@@ -21,7 +21,6 @@ import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import FormHelperText from '@mui/material/FormHelperText'
 import Grid from '@mui/material/Grid'
-import { createTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import { Form, Formik } from 'formik'
 import React, { useEffect, useState } from 'react'
@@ -31,8 +30,6 @@ import { useTypedSelector } from 'src/hooks'
 import { getLoginToken } from 'src/utils'
 import useActions from './store/useActions'
 import { schema } from './validation'
-
-const theme = createTheme()
 
 export default function Login() {
   const history = useHistory()
