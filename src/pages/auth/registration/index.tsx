@@ -1,21 +1,26 @@
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration'
-import { Container, LinearProgress } from '@mui/material'
+import { LinearProgress } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
 import Typography from '@mui/material/Typography'
 import React from 'react'
-import { isMobile } from 'react-device-detect'
+import SendPopUp from 'src/components/SendPopUp'
+import { ContainerStyled } from 'src/elements'
+import { useTypedSelector } from 'src/hooks'
 import RegistrationForm from './components/RegistrationForm'
+import useActions from './store/useActions'
 
 const Registration = () => {
-  const maxWidth = isMobile ? 'xs' : 'lg'
+  const { setSendStatus } = useActions()
+
+  const { sendStatus } = useTypedSelector(state => state.pages.registraion)
 
   return (
     <>
       {false && <LinearProgress />}
 
-      <Container component="main" maxWidth={maxWidth}>
+      <ContainerStyled component="main">
         <CssBaseline />
 
         <Box
@@ -37,7 +42,9 @@ const Registration = () => {
 
           <RegistrationForm />
         </Box>
-      </Container>
+
+        <SendPopUp sendStatus={sendStatus} setSendStatus={setSendStatus} />
+      </ContainerStyled>
     </>
   )
 }

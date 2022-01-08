@@ -1,9 +1,9 @@
 import styled from 'styled-components'
 
-export const Box: any = styled.div`
+export const BoxStyled: any = styled.div`
   display: ${({ display }: any) => display || 'flex'};
   flex-direction: ${({ direction }: any) => direction || 'row'};
-  width: ${({ width }: any) => (width ? `${width}` : 'auto')};
+  width: ${({ width }: any) => (width ? `${width}` : '100%')};
   min-width: ${({ minWidth }: any) => minWidth || ''};
   height: ${({ height }: any) => (height ? `${height}` : 'auto')};
   margin: ${({ margin }: any) => margin || 0};
@@ -13,6 +13,7 @@ export const Box: any = styled.div`
   align-items: ${({ align }: any) => align || 'initial'};
   border: ${({ border }: any) => border || 'none'};
   border-radius: ${({ borderRadius }: any) => borderRadius || 'none'};
+  transform: ${({ transform }: any) => transform || 'none'};
   flex-wrap: ${({ wrap }: any) => wrap || 'nowrap'};
   overflow: ${({ overflow }: any) => overflow};
   cursor: ${({ cursor }: any) => cursor};
@@ -29,23 +30,17 @@ export const Box: any = styled.div`
   user-select: ${({ userSelect }: any) => userSelect};
   max-height: ${({ maxHeight }: any) => maxHeight};
   overflow-y: ${({ overflowY }: any) => overflowY};
+  box-shadow: ${({ boxShadow }: any) => boxShadow};
+  max-width: ${({ maxWidth }: any) => maxWidth || 'auto'};
+  outline: none;
 
   grid-template-columns: ${({ gridTemplateColumns }: any) =>
     gridTemplateColumns};
   grid-row-gap: ${({ gridRowGap }: any) => gridRowGap};
+  column-gap: ${({ columnGap }: any) => columnGap};
 
-  &:hover {
-    background: ${({ backgroundHover }: any) => backgroundHover};
-  }
-
-  &::-webkit-scrollbar {
-    width: 15px;
-    background-color: none;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    border-radius: 15px;
-    border: 4px solid white;
-    background-color: #c7c7c7;
+  @media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) {
+    max-width: ${({ maxWidthMobile }: any) => maxWidthMobile};
+    display: ${({ displayMobile }: any) => displayMobile || 'flex'};
   }
 `

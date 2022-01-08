@@ -17,7 +17,7 @@ const PasswordFields = ({
   handleBlur,
   values,
 }) => {
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState<boolean>(false)
 
   const handleClickShowPassword = () => setIsVisible(prev => !prev)
 

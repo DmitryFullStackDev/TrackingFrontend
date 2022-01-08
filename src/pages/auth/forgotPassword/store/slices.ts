@@ -4,25 +4,27 @@ import {
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit'
-import { emailType, sendStatusType } from 'src/types'
+import { forgontPasswordApiType, sendStatusType } from 'src/types'
 
 const prefix = 'page/auth/forgotPassword/'
 
-export const forgontPassword = createAction<emailType>(
+export const forgontPasswordApi = createAction<forgontPasswordApiType>(
   prefix + 'forgontPasswordApi',
 )
 
 export const clearStore = createAction(prefix + 'clearStore')
 
+const sendStatusInit = 'waiting' as sendStatusType
+
 const sendStatus = createSlice({
   name: prefix + '/sendStatus',
-  initialState: 'waiting',
+  initialState: sendStatusInit,
   reducers: {
     setSendStatus: (state, { payload }: PayloadAction<sendStatusType>) =>
       (state = payload),
   },
   extraReducers: {
-    [clearStore.type]: () => 'waiting',
+    [clearStore.type]: () => sendStatusInit,
   },
 })
 

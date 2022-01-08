@@ -34,7 +34,7 @@ import { schema } from './validation'
 export default function Login() {
   const history = useHistory()
 
-  const [isVisible, setIsVisible] = useState(false)
+  const [isVisible, setIsVisible] = useState<boolean>(false)
 
   const { isLoading } = useTypedSelector(state => state.pages.login)
 
@@ -96,7 +96,6 @@ export default function Login() {
                   id="email"
                   label="Email Address"
                   name="email"
-                  autoFocus
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}

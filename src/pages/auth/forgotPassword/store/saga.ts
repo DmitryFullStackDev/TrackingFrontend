@@ -3,10 +3,11 @@ import { call, put, takeLatest } from 'redux-saga/effects'
 import API from 'src/api'
 import * as actions from './slices'
 
-function* loginApi(action: ReturnType<typeof actions.forgontPassword>) {
+function* loginApi(action: ReturnType<typeof actions.forgontPasswordApi>) {
   const { payload } = action
 
   yield put(actions.setSendStatus('sending'))
+
   try {
     yield call(() => API.auth.forgotPassword.post(payload))
 
@@ -19,5 +20,5 @@ function* loginApi(action: ReturnType<typeof actions.forgontPassword>) {
 }
 
 export function* watchAuthForgotPassword() {
-  yield takeLatest(actions.forgontPassword.type, loginApi)
+  yield takeLatest(actions.forgontPasswordApi.type, loginApi)
 }

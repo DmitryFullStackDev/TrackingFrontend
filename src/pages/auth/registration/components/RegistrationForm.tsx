@@ -14,9 +14,9 @@ import Box from '@mui/material/Box'
 import FormHelperText from '@mui/material/FormHelperText'
 import { Form, Formik } from 'formik'
 import React from 'react'
-import { isMobile } from 'react-device-detect'
 import { useHistory } from 'react-router-dom'
 import { pages } from 'src/constants'
+import { BoxStyled } from 'src/elements'
 import { isEmpty } from 'src/utils'
 import useActions from '../store/useActions'
 import { schema } from '../validation'
@@ -24,11 +24,9 @@ import PasswordFields from './PasswordFields'
 import TextFields from './TextFields'
 
 const RegistrationForm = () => {
-  const { registraionApi } = useActions()
+  const { registrationApi } = useActions()
 
   const history = useHistory()
-
-  const display = isMobile ? 'block' : 'grid'
 
   return (
     <Formik
@@ -45,7 +43,7 @@ const RegistrationForm = () => {
       }}
       validationSchema={schema}
       onSubmit={values => {
-        console.log(values)
+        registrationApi(values)
       }}
     >
       {({
@@ -57,12 +55,11 @@ const RegistrationForm = () => {
         handleBlur,
       }) => (
         <Form>
-          <Box
-            sx={{
-              display,
-              gridTemplateColumns: '1fr 1fr',
-              columnGap: '60px',
-            }}
+          <BoxStyled
+            display="grid"
+            gridTemplateColumns="1fr 1fr"
+            columnGap="60px"
+            displayMobile="block"
           >
             <Box>
               <TextFields
@@ -113,14 +110,7 @@ const RegistrationForm = () => {
                     />
                   }
                   label={
-                    <Link
-                      variant="inherit"
-                      component="button"
-                      type="button"
-                      onClick={() => {
-                        console.log(1)
-                      }}
-                    >
+                    <Link variant="inherit" component="button" type="button">
                       I have read and agree to the terms and conditions
                     </Link>
                   }
@@ -167,7 +157,7 @@ const RegistrationForm = () => {
                 </Grid>
               </Grid>
             </Box>
-          </Box>
+          </BoxStyled>
         </Form>
       )}
     </Formik>

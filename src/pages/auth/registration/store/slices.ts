@@ -4,27 +4,31 @@ import {
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit'
+import { registrationApiType, sendStatusType } from 'src/types'
 
 const prefix = 'page/auth/registraion'
 
-export const registraionApi = createAction<any>(prefix + '/registraionApi')
+export const registrationApi = createAction<registrationApiType>(
+  prefix + '/registrationApi',
+)
 
 export const clearStore = createAction(prefix + 'clearStore')
 
-const isLoading = createSlice({
-  name: prefix + '/isLoading',
-  initialState: false,
+const sendStatusInit = 'waiting' as sendStatusType
+
+const sendStatus = createSlice({
+  name: prefix + '/sendStatus',
+  initialState: sendStatusInit,
   reducers: {
-    setIsLoading: (state, { payload }: PayloadAction<boolean>) =>
+    setSendStatus: (state, { payload }: PayloadAction<sendStatusType>) =>
       (state = payload),
   },
   extraReducers: {
-    [clearStore.type]: () => false,
+    [clearStore.type]: () => sendStatusInit,
   },
 })
 
-export const { setIsLoading } = isLoading.actions
-
+export const { setSendStatus } = sendStatus.actions
 export default combineReducers({
-  isLoading: isLoading.reducer,
+  sendStatus: sendStatus.reducer,
 })

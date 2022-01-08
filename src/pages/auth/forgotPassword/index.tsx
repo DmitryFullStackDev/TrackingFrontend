@@ -1,19 +1,16 @@
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
 import LockResetIcon from '@mui/icons-material/LockReset'
 import { Button, Link, TextField } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
-import CircularProgress from '@mui/material/CircularProgress'
-import { deepOrange, green } from '@mui/material/colors'
+import { deepOrange } from '@mui/material/colors'
 import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import Grid from '@mui/material/Grid'
-import Modal from '@mui/material/Modal'
 import Typography from '@mui/material/Typography'
 import { Form, Formik } from 'formik'
 import React, { useEffect } from 'react'
-import { isMobile } from 'react-device-detect'
 import { useHistory } from 'react-router-dom'
+import SendPopUp from 'src/components/SendPopUp'
 import { pages } from 'src/constants'
 import { useTypedSelector } from 'src/hooks'
 import { isEmpty } from 'src/utils'
@@ -25,9 +22,7 @@ export default function ForgotPassword() {
 
   const { sendStatus } = useTypedSelector(state => state.pages.forgotPassword)
 
-  const { forgontPassword, setSendStatus, clearStore } = useActions()
-
-  const popUpWidth = isMobile ? '90%' : 400
+  const { forgontPasswordApi, setSendStatus, clearStore } = useActions()
 
   useEffect(() => {
     if (sendStatus === 'done') {
@@ -64,7 +59,7 @@ export default function ForgotPassword() {
           }}
           validationSchema={schema}
           onSubmit={values => {
-            forgontPassword(values)
+            forgontPasswordApi(values)
           }}
         >
           {({ values, errors, touched, handleChange, handleBlur }) => (
@@ -77,7 +72,6 @@ export default function ForgotPassword() {
                 id="email"
                 label="Email Address"
                 name="email"
-                autoFocus
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.email}
@@ -123,59 +117,7 @@ export default function ForgotPassword() {
         </Grid>
       </Box>
 
-      <Modal
-        open={sendStatus !== 'waiting'}
-        onClose={() => setSendStatus('waiting')}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box
-          sx={{
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: popUpWidth,
-            bgcolor: 'background.paper',
-            borderRadius: '4px',
-            outline: 'none',
-            boxShadow: 24,
-            p: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          {sendStatus === 'sending' && (
-            <CircularProgress sx={{ color: green[500], fontSize: 50 }} />
-          )}
-
-          {sendStatus === 'done' && (
-            <CheckCircleOutlineIcon sx={{ color: green[500], fontSize: 50 }} />
-          )}
-
-          <Typography
-            mt={2}
-            mb={2}
-            textAlign="center"
-            variant="body1"
-            gutterBottom
-          >
-            The reset password link was send to your email
-          </Typography>
-
-          <Link
-            alignSelf="flex-end"
-            variant="inherit"
-            component="button"
-            onClick={() => {
-              history.push(pages.LOGIN)
-            }}
-          >
-            Back to Sign In
-          </Link>
-        </Box>
-      </Modal>
+      <SendPopUp sendStatus={sendStatus} setSendStatus={setSendStatus} />
     </Container>
   )
 }

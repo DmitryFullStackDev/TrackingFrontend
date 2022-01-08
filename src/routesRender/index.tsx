@@ -1,7 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import IsAuth from 'src/components/IsAuth/IsAuth'
-
+import IsAuth from 'src/components/IsAuth'
 import routes from './list'
 
 const Routes = () => (

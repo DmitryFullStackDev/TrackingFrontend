@@ -1,4 +1,4 @@
-export type emailType = {
+export type forgontPasswordApiType = {
   email: string
 }
 

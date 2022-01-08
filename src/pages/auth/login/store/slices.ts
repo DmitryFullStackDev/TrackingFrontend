@@ -4,19 +4,17 @@ import {
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit'
+import { loginApiPayload } from 'src/types'
 
 const prefix = 'page/auth/login/'
 
-export const loginApi = createAction<{
-  email: string
-  password: string
-}>(prefix + 'loginApi')
+export const loginApi = createAction<loginApiPayload>(prefix + 'loginApi')
 
 export const clearStore = createAction(prefix + 'clearStore')
 
 const isLoading = createSlice({
   name: prefix + '/isLoading',
-  initialState: false,
+  initialState: false as boolean,
   reducers: {
     setIsLoading: (state, { payload }: PayloadAction<boolean>) =>
       (state = payload),
@@ -28,7 +26,7 @@ const isLoading = createSlice({
 
 const isRemember = createSlice({
   name: prefix + '/isRemember',
-  initialState: false,
+  initialState: false as boolean,
   reducers: {
     setIsRemember: (state, { payload }: PayloadAction<boolean>) =>
       (state = payload),
