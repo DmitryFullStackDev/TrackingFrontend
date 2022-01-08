@@ -1,15 +1,15 @@
 import LockResetIcon from '@mui/icons-material/LockReset'
-import { Button, Link, TextField } from '@mui/material'
+import { Button, TextField } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import { deepOrange } from '@mui/material/colors'
 import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
-import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import { Form, Formik } from 'formik'
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
+import NavigationButtons from 'src/components/NavigationButtons'
 import SendPopUp from 'src/components/SendPopUp'
 import { pages } from 'src/constants'
 import { useTypedSelector } from 'src/hooks'
@@ -90,31 +90,10 @@ export default function ForgotPassword() {
           )}
         </Formik>
 
-        <Grid container>
-          <Grid item xs>
-            <Link
-              component="button"
-              variant="body2"
-              onClick={() => {
-                history.push(pages.LOGIN)
-              }}
-            >
-              Sing In
-            </Link>
-          </Grid>
-
-          <Grid item>
-            <Link
-              component="button"
-              variant="body2"
-              onClick={() => {
-                history.push(pages.REGISTRATION)
-              }}
-            >
-              {"Don't have an account? Sign Up"}
-            </Link>
-          </Grid>
-        </Grid>
+        <NavigationButtons
+          leftButton={pages.LOGIN}
+          rightButton={pages.REGISTRATION}
+        />
       </Box>
 
       <SendPopUp sendStatus={sendStatus} setSendStatus={setSendStatus} />

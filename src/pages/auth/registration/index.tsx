@@ -8,13 +8,13 @@ import React from 'react'
 import SendPopUp from 'src/components/SendPopUp'
 import { ContainerStyled } from 'src/elements'
 import { useTypedSelector } from 'src/hooks'
-import RegistrationForm from './components/RegistrationForm'
+import RegistrationForm from './components/form'
 import useActions from './store/useActions'
 
 const Registration = () => {
-  const { setSendStatus } = useActions()
-
   const { sendStatus } = useTypedSelector(state => state.pages.registraion)
+
+  const { setSendStatus } = useActions()
 
   return (
     <>

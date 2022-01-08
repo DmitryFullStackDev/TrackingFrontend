@@ -3,4 +3,5 @@ export const pages = {
   LOGIN: '/login',
   REGISTRATION: '/registration',
   FORGOTPASSWORD: '/forgotPassword',
+  RESETPASSWORD: '/resetPassword',
 }

@@ -25,23 +25,25 @@ const TextFields = ({ touched, errors, handleChange, handleBlur, values }) => {
     },
   ]
 
-  const mapTextFields = textFieldData.map(({ id, label }) => (
-    <TextField
-      key={id}
-      error={Boolean(touched[id] && errors[id])}
-      helperText={touched[id] && errors[id]}
-      margin="normal"
-      fullWidth
-      id={id}
-      label={label}
-      name={id}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      value={values[id]}
-    />
-  ))
-
-  return <>{mapTextFields}</>
+  return (
+    <>
+      {textFieldData.map(({ id, label }) => (
+        <TextField
+          key={id}
+          error={Boolean(touched[id] && errors[id])}
+          helperText={touched[id] && errors[id]}
+          margin="normal"
+          fullWidth
+          id={id}
+          label={label}
+          name={id}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          value={values[id]}
+        />
+      ))}
+    </>
+  )
 }
 
 export default TextFields

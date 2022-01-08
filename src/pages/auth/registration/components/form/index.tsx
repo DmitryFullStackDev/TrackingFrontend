@@ -5,7 +5,6 @@ import {
   Checkbox,
   FormControl,
   FormControlLabel,
-  Grid,
   Link,
   Stack,
   TextField,
@@ -14,19 +13,17 @@ import Box from '@mui/material/Box'
 import FormHelperText from '@mui/material/FormHelperText'
 import { Form, Formik } from 'formik'
 import React from 'react'
-import { useHistory } from 'react-router-dom'
 import { pages } from 'src/constants'
 import { BoxStyled } from 'src/elements'
 import { isEmpty } from 'src/utils'
-import useActions from '../store/useActions'
-import { schema } from '../validation'
-import PasswordFields from './PasswordFields'
+import NavigationButtons from '../../../../../components/NavigationButtons'
+import PasswordFields from '../../../../../components/PasswordFields'
+import useActions from '../../store/useActions'
+import { schema } from '../../validation'
 import TextFields from './TextFields'
 
 const RegistrationForm = () => {
   const { registrationApi } = useActions()
-
-  const history = useHistory()
 
   return (
     <Formik
@@ -131,31 +128,10 @@ const RegistrationForm = () => {
                 Sign In
               </Button>
 
-              <Grid mt={1.7} container>
-                <Grid item xs>
-                  <Link
-                    component="button"
-                    variant="body2"
-                    onClick={() => {
-                      history.push(pages.FORGOTPASSWORD)
-                    }}
-                  >
-                    Forgot password?
-                  </Link>
-                </Grid>
-
-                <Grid item>
-                  <Link
-                    component="button"
-                    variant="body2"
-                    onClick={() => {
-                      history.push(pages.LOGIN)
-                    }}
-                  >
-                    Sign In
-                  </Link>
-                </Grid>
-              </Grid>
+              <NavigationButtons
+                leftButton={pages.FORGOTPASSWORD}
+                rightButton={pages.LOGIN}
+              />
             </Box>
           </BoxStyled>
         </Form>

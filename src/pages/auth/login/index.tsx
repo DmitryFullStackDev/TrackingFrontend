@@ -10,7 +10,6 @@ import {
   InputAdornment,
   InputLabel,
   LinearProgress,
-  Link,
   OutlinedInput,
   TextField,
 } from '@mui/material'
@@ -20,11 +19,11 @@ import { green } from '@mui/material/colors'
 import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import FormHelperText from '@mui/material/FormHelperText'
-import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import { Form, Formik } from 'formik'
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import NavigationButtons from 'src/components/NavigationButtons'
 import { pages } from 'src/constants'
 import { useTypedSelector } from 'src/hooks'
 import { getLoginToken, isEmpty } from 'src/utils'
@@ -163,31 +162,10 @@ export default function Login() {
             )}
           </Formik>
 
-          <Grid container>
-            <Grid item xs>
-              <Link
-                component="button"
-                variant="body2"
-                onClick={() => {
-                  history.push(pages.FORGOTPASSWORD)
-                }}
-              >
-                Forgot password?
-              </Link>
-            </Grid>
-
-            <Grid item>
-              <Link
-                component="button"
-                variant="body2"
-                onClick={() => {
-                  history.push(pages.REGISTRATION)
-                }}
-              >
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
+          <NavigationButtons
+            leftButton={pages.FORGOTPASSWORD}
+            rightButton={pages.REGISTRATION}
+          />
         </Box>
       </Container>
     </>
