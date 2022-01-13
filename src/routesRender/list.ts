@@ -20,7 +20,7 @@ const withoutAuth = [
     component: ForgotPassword,
   },
   {
-    path: p.RESETPASSWORD,
+    path: p.UPDATEPASSWORD,
     component: ResetPass,
   },
 ]

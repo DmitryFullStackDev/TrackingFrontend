@@ -43,7 +43,11 @@ const Registration = () => {
           <RegistrationForm />
         </Box>
 
-        <SendPopUp sendStatus={sendStatus} setSendStatus={setSendStatus} />
+        <SendPopUp
+          sendStatus={sendStatus}
+          setSendStatus={setSendStatus}
+          text="A link to activate your account has been sent to your email"
+        />
       </ContainerStyled>
     </>
   )

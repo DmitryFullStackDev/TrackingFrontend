@@ -93,10 +93,16 @@ export default function ForgotPassword() {
         <NavigationButtons
           leftButton={pages.LOGIN}
           rightButton={pages.REGISTRATION}
+          rightText="Sign Un"
+          leftText="Sing In"
         />
       </Box>
 
-      <SendPopUp sendStatus={sendStatus} setSendStatus={setSendStatus} />
+      <SendPopUp
+        sendStatus={sendStatus}
+        setSendStatus={setSendStatus}
+        text="The reset password link was send to your email"
+      />
     </Container>
   )
 }

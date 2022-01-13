@@ -13,9 +13,10 @@ import { sendStatusType } from 'src/types'
 type sendPopUpType = {
   sendStatus: sendStatusType
   setSendStatus(value: sendStatusType): void
+  text: string
 }
 
-const SendPopUp: FC<sendPopUpType> = ({ sendStatus, setSendStatus }) => {
+const SendPopUp: FC<sendPopUpType> = ({ sendStatus, setSendStatus, text }) => {
   const history = useHistory()
 
   useEffect(() => {
@@ -60,7 +61,7 @@ const SendPopUp: FC<sendPopUpType> = ({ sendStatus, setSendStatus }) => {
           variant="body1"
           gutterBottom
         >
-          The reset password link was send to your email
+          {text}
         </Typography>
 
         <Link

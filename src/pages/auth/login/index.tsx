@@ -1,16 +1,9 @@
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import {
   Button,
   Checkbox,
-  FormControl,
   FormControlLabel,
-  IconButton,
-  InputAdornment,
-  InputLabel,
   LinearProgress,
-  OutlinedInput,
   TextField,
 } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
@@ -18,12 +11,12 @@ import Box from '@mui/material/Box'
 import { green } from '@mui/material/colors'
 import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
-import FormHelperText from '@mui/material/FormHelperText'
 import Typography from '@mui/material/Typography'
 import { Form, Formik } from 'formik'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import NavigationButtons from 'src/components/NavigationButtons'
+import PasswordFields from 'src/components/PasswordFields'
 import { pages } from 'src/constants'
 import { useTypedSelector } from 'src/hooks'
 import { getLoginToken, isEmpty } from 'src/utils'
@@ -33,13 +26,9 @@ import { schema } from './validation'
 export default function Login() {
   const history = useHistory()
 
-  const [isVisible, setIsVisible] = useState<boolean>(false)
-
   const { isLoading } = useTypedSelector(state => state.pages.login)
 
   const { loginApi, clearStore, setIsRemember } = useActions()
-
-  const handleClickShowPassword = () => setIsVisible(prev => !prev)
 
   useEffect(() => {
     if (false && getLoginToken()) {
@@ -100,41 +89,14 @@ export default function Login() {
                   value={values.email}
                 />
 
-                <FormControl
-                  margin="normal"
-                  variant="outlined"
-                  fullWidth
-                  error={Boolean(touched.password && errors.password)}
-                >
-                  <InputLabel htmlFor="password">Password</InputLabel>
-
-                  <OutlinedInput
-                    id="password"
-                    type={isVisible ? 'text' : 'password'}
-                    value={values.password}
-                    name="password"
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <IconButton
-                          aria-label="toggle password visibility"
-                          onClick={handleClickShowPassword}
-                          edge="end"
-                        >
-                          {isVisible ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    }
-                    label="Password"
-                  />
-
-                  {Boolean(touched.password && errors.password) && (
-                    <FormHelperText id="component-helper-text">
-                      {errors.password}
-                    </FormHelperText>
-                  )}
-                </FormControl>
+                <PasswordFields
+                  touched={touched}
+                  errors={errors}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                  values={values}
+                  onlyPassword={true}
+                />
 
                 <FormControlLabel
                   control={
@@ -165,6 +127,8 @@ export default function Login() {
           <NavigationButtons
             leftButton={pages.FORGOTPASSWORD}
             rightButton={pages.REGISTRATION}
+            rightText="Sing Up"
+            leftText="Forgot password?"
           />
         </Box>
       </Container>

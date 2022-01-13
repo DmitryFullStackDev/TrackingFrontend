@@ -11,10 +11,10 @@ const IsAuth = ({ children }) => {
 
   useEffect(() => {
     if (
-      /*      !Boolean(loginToken) && */
+      !Boolean(loginToken) &&
       location.pathname !== pages.REGISTRATION &&
       location.pathname !== pages.LOGIN &&
-      location.pathname.search(/reset-password/) === -1
+      location.pathname !== pages.UPDATEPASSWORD
     ) {
       history.push({ pathname: pages.LOGIN })
     }

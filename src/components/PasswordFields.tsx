@@ -8,29 +8,46 @@ import {
   OutlinedInput,
 } from '@mui/material'
 import FormHelperText from '@mui/material/FormHelperText'
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 
-const PasswordFields = ({
+type Props = {
+  touched: any
+  errors: any
+  handleChange: any
+  handleBlur: any
+  values: any
+  onlyPassword?: boolean
+}
+
+const PasswordFields: FC<Props> = ({
   touched,
   errors,
   handleChange,
   handleBlur,
   values,
+  onlyPassword = false,
 }) => {
   const [isVisible, setIsVisible] = useState<boolean>(false)
 
   const handleClickShowPassword = () => setIsVisible(prev => !prev)
 
-  const passwordFieldData = [
-    {
-      id: 'password',
-      label: 'Password',
-    },
-    {
-      id: 'confirmPassword',
-      label: 'Confirm password',
-    },
-  ]
+  const passwordFieldData = onlyPassword
+    ? [
+        {
+          id: 'password',
+          label: 'Password',
+        },
+      ]
+    : [
+        {
+          id: 'password',
+          label: 'Password',
+        },
+        {
+          id: 'confirmPassword',
+          label: 'Confirm password',
+        },
+      ]
   return (
     <>
       {passwordFieldData.map(({ id, label }) => (

@@ -1,27 +1,23 @@
 import { toast } from 'react-toastify'
-import { call, put, select, takeLatest } from 'redux-saga/effects'
-import API from 'src/api'
-import { setLoginToken } from 'src/utils'
+import { put, takeLatest } from 'redux-saga/effects'
 import * as actions from './slices'
 
-function* loginApi(action: ReturnType<typeof actions.loginApi>) {
+function* updatePass(action: ReturnType<typeof actions.updatePassApi>) {
   const { payload } = action
 
-  const { isRemember } = yield select(state => state.pages.login)
-
-  yield put(actions.setIsLoading(true))
+  yield put(actions.setSendStatus('sending'))
 
   try {
-    const { data } = yield call(() => API.auth.login.post(payload))
-    yield setLoginToken(data.access_token, isRemember)
+    console.log(payload)
 
-    /*   yield put(push(pages.HOME)) */
+    yield put(actions.setSendStatus('done'))
   } catch (e) {
     toast.error(e.data.message)
+
+    yield put(actions.setSendStatus('waiting'))
   }
-  yield put(actions.setIsLoading(false))
 }
 
-export function* watchAuthLogin() {
-  yield takeLatest(actions.loginApi.type, loginApi)
+export function* watchUpdatePassLogin() {
+  yield takeLatest(actions.updatePassApi.type, updatePass)
 }

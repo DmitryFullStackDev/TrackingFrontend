@@ -4,39 +4,30 @@ import {
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit'
-import { loginApiPayload } from 'src/types'
+import { sendStatusType } from 'src/types'
 
-const prefix = 'page/auth/login/'
+const prefix = 'page/auth/updatePassword/'
 
-export const loginApi = createAction<loginApiPayload>(prefix + 'loginApi')
+export const updatePassApi = createAction<any>(prefix + 'updatePassApi')
 
 export const clearStore = createAction(prefix + 'clearStore')
 
-const isLoading = createSlice({
-  name: prefix + '/isLoading',
-  initialState: false as boolean,
+const sendStatusInit = 'waiting' as sendStatusType
+
+const sendStatus = createSlice({
+  name: prefix + '/sendStatus',
+  initialState: sendStatusInit,
   reducers: {
-    setIsLoading: (state, { payload }: PayloadAction<boolean>) =>
+    setSendStatus: (state, { payload }: PayloadAction<sendStatusType>) =>
       (state = payload),
   },
   extraReducers: {
-    [clearStore.type]: () => false,
+    [clearStore.type]: () => sendStatusInit,
   },
 })
 
-const isRemember = createSlice({
-  name: prefix + '/isRemember',
-  initialState: false as boolean,
-  reducers: {
-    setIsRemember: (state, { payload }: PayloadAction<boolean>) =>
-      (state = payload),
-  },
-})
-
-export const { setIsLoading } = isLoading.actions
-export const { setIsRemember } = isRemember.actions
+export const { setSendStatus } = sendStatus.actions
 
 export default combineReducers({
-  isLoading: isLoading.reducer,
-  isRemember: isRemember.reducer,
+  sendStatus: sendStatus.reducer,
 })

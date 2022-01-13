@@ -131,6 +131,8 @@ const RegistrationForm = () => {
               <NavigationButtons
                 leftButton={pages.FORGOTPASSWORD}
                 rightButton={pages.LOGIN}
+                rightText="Sing In"
+                leftText="Forgot password?"
               />
             </Box>
           </BoxStyled>

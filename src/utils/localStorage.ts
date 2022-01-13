@@ -1,6 +1,6 @@
 const loginTokenKey = 'login-token'
 
-export const setLoginToken = (value, isLocal = true) => {
+export const setLoginToken = (value: string, isLocal = true) => {
   if (isLocal) {
     localStorage.setItem(loginTokenKey, value)
   } else {

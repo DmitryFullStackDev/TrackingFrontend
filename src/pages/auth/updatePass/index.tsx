@@ -1,5 +1,5 @@
 import PasswordIcon from '@mui/icons-material/Password'
-import { Button, LinearProgress } from '@mui/material'
+import { Button } from '@mui/material'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import { green } from '@mui/material/colors'
@@ -7,40 +7,33 @@ import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import Typography from '@mui/material/Typography'
 import { Form, Formik } from 'formik'
-import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import PasswordFields from 'src/components/PasswordFields'
-import { pages } from 'src/constants'
+import SendPopUp from 'src/components/SendPopUp'
 import { useTypedSelector } from 'src/hooks'
-import { getLoginToken, isEmpty } from 'src/utils'
+import { isEmpty } from 'src/utils'
 import useActions from './store/useActions'
 import { schema } from './validation'
 
 export default function ResetPass() {
-  const history = useHistory()
+  const search = useLocation().search
 
-  const [isVisible, setIsVisible] = useState<boolean>(false)
+  const token = new URLSearchParams(search).get('token')
 
-  const { isLoading } = useTypedSelector(state => state.pages.login)
+  const { sendStatus } = useTypedSelector(state => state.pages.updatePass)
 
-  const { loginApi, clearStore, setIsRemember } = useActions()
+  const { updatePassApi, clearStore, setSendStatus } = useActions()
 
-  const handleClickShowPassword = () => setIsVisible(prev => !prev)
-
-  useEffect(() => {
-    if (false && getLoginToken()) {
-      history.push(pages.HOME)
-    }
-
-    return () => {
+  useEffect(
+    () => () => {
       clearStore()
-    }
-  }, [])
+    },
+    [],
+  )
 
   return (
     <>
-      {isLoading && <LinearProgress />}
-
       <Container component="main" maxWidth="xs">
         <CssBaseline />
 
@@ -66,8 +59,8 @@ export default function ResetPass() {
               confirmPassword: '',
             }}
             validationSchema={schema}
-            onSubmit={values => {
-              console.log(values)
+            onSubmit={({ password }) => {
+              updatePassApi({ password, token })
             }}
           >
             {({ values, errors, touched, handleChange, handleBlur }) => (
@@ -87,12 +80,18 @@ export default function ResetPass() {
                   variant="contained"
                   sx={{ mt: 3, mb: 2 }}
                 >
-                  Sign In
+                  Set new password
                 </Button>
               </Form>
             )}
           </Formik>
         </Box>
+
+        <SendPopUp
+          sendStatus={sendStatus}
+          setSendStatus={setSendStatus}
+          text="Your password was changed"
+        />
       </Container>
     </>
   )

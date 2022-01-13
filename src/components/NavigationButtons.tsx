@@ -5,9 +5,16 @@ import { useHistory } from 'react-router-dom'
 type propsType = {
   leftButton: string
   rightButton: string
+  leftText: string
+  rightText: string
 }
 
-const NavigationButtons: FC<propsType> = ({ leftButton, rightButton }) => {
+const NavigationButtons: FC<propsType> = ({
+  leftButton,
+  rightButton,
+  leftText,
+  rightText,
+}) => {
   const history = useHistory()
 
   return (
@@ -20,7 +27,7 @@ const NavigationButtons: FC<propsType> = ({ leftButton, rightButton }) => {
             history.push(leftButton)
           }}
         >
-          Forgot password?
+          {leftText}
         </Link>
       </Grid>
 
@@ -32,7 +39,7 @@ const NavigationButtons: FC<propsType> = ({ leftButton, rightButton }) => {
             history.push(rightButton)
           }}
         >
-          Sign In
+          {rightText}
         </Link>
       </Grid>
     </Grid>
