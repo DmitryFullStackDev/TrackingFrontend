@@ -32,7 +32,7 @@ export default function Login() {
 
   useEffect(() => {
     if (false && getLoginToken()) {
-      history.push(pages.HOME)
+      history.push(pages.MAIN)
     }
 
     return () => {

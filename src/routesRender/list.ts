@@ -3,8 +3,14 @@ import ForgotPassword from 'src/pages/auth/forgotPassword'
 import Login from 'src/pages/auth/login'
 import Registration from 'src/pages/auth/registration'
 import ResetPass from 'src/pages/auth/updatePass'
+import Main from 'src/pages/main'
 
-const withAuth = []
+const withAuth = [
+  {
+    path: p.MAIN,
+    component: Main,
+  },
+]
 
 const withoutAuth = [
   {
