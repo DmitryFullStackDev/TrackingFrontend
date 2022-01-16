@@ -119,6 +119,7 @@ const Navigation: FC<PropsType> = ({ children, dashboardChildren }) => {
                 if (Boolean(link)) {
                   return (
                     <ListItem
+                      key={id}
                       button
                       onClick={() => history.push({ pathname: link })}
                     >

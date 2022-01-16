@@ -44,7 +44,7 @@ export const SubMenu: FC<ProrsType> = ({ data }) => {
       <ListItem button onClick={handleClick}>
         <ListItemIcon>{data.icon}</ListItemIcon>
 
-        <ListItemText primary="Inbox" />
+        <ListItemText primary={data.name} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItem>
 

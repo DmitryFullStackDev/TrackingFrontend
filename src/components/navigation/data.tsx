@@ -46,7 +46,7 @@ export const items = [
         link: '',
       },
       {
-        id: 42,
+        id: 43,
         name: 'Statistics',
         icon: <PollIcon />,
         link: '',
