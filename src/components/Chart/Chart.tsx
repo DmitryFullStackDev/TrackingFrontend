@@ -9,6 +9,8 @@ import {
   XAxis,
   YAxis,
 } from 'recharts'
+import { colors } from 'src/constants'
+import { BoxStyled } from 'src/elements'
 import { barColors } from './barColors'
 
 export default function Chart({ data }) {
@@ -25,32 +27,38 @@ export default function Chart({ data }) {
   const legendData = Object.keys(data[0]).filter(item => item !== 'name')
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <BarChart
-        data={data}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
+    <BoxStyled
+      padding="30px 0px"
+      background={colors.GhostWhite}
+      borderRadius="8px"
+    >
+      <ResponsiveContainer width="100%" height={300}>
+        <BarChart
+          data={data}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
 
-        <Legend onClick={handleClick} />
+          <Legend onClick={handleClick} />
 
-        {legendData.map((item, index) => (
-          <Bar
-            key={index}
-            hide={deactivateBar.find(el => el === item)}
-            dataKey={item}
-            fill={barColors[index]}
-          />
-        ))}
-      </BarChart>
-    </ResponsiveContainer>
+          {legendData.map((item, index) => (
+            <Bar
+              key={index}
+              hide={deactivateBar.find(el => el === item)}
+              dataKey={item}
+              fill={barColors[index]}
+            />
+          ))}
+        </BarChart>
+      </ResponsiveContainer>
+    </BoxStyled>
   )
 }

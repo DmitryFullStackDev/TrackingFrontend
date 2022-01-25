@@ -1,6 +1,7 @@
 import AddIcon from '@mui/icons-material/Add'
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd'
 import DetailsIcon from '@mui/icons-material/Details'
+import EventNoteIcon from '@mui/icons-material/EventNote'
 import PollIcon from '@mui/icons-material/Poll'
 import SearchIcon from '@mui/icons-material/Search'
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest'
@@ -9,6 +10,12 @@ import React from 'react'
 import { pages } from 'src/constants'
 
 export const items = [
+  {
+    id: 0,
+    name: 'Timetable',
+    icon: <EventNoteIcon />,
+    link: pages.MAIN,
+  },
   {
     id: 1,
     name: 'Therapy',
