@@ -16,7 +16,9 @@ const IsAuth = ({ children }) => {
       location.pathname !== pages.LOGIN &&
       location.pathname !== pages.UPDATEPASSWORD
     ) {
-      /*   history.push({ pathname: pages.LOGIN }) */
+      /*
+       history.push({ pathname: pages.LOGIN })
+*/
     }
   }, [])
 
