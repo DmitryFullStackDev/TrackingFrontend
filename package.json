@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://DmitryFullStackDev.github.io/TrackingFrontend",
   "dependencies": {
     "@date-io/date-fns": "1.x",
     "@date-io/moment": "^2.11.0",
